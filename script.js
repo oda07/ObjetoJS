@@ -15,12 +15,33 @@ class Pessoa {
                 input[i].value = "";
             }
 
-            return this.arrPessoa;
+            this.listar();
+        }
+    }
+
+    listar() {
+        let tbody = document.getElementById('tbody');
+        tbody.innerText = '';
+
+        for (let i = 0; i < this.arrPessoa.length; i++) {
+            let tr = tbody.insertRow();
+
+            let td_id = tr.insertCell();
+            let td_nome = tr.insertCell();
+            let td_email = tr.insertCell();
+            let td_cidade = tr.insertCell();
+            
+            td_id.innerText = this.arrPessoa[i].id;
+            td_nome.innerText = this.arrPessoa[i].nome;
+            td_email.innerText = this.arrPessoa[i].email;
+            td_cidade.innerText = this.arrPessoa[i].cidade;
+
         }
     }
 
     verificarCampos() {
         let usuario = {};
+        usuario.id = this.id;
         usuario.nome = document.getElementById('nome').value;
         usuario.email = document.getElementById('email').value;
         usuario.cidade = document.getElementById('cidade').value;
