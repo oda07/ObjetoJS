@@ -1,13 +1,15 @@
 class Pessoa {
     constructor() {
-        this.id = 1;
+        this.id = localStorage.length + 1;
         this.arrPessoa = [];
     }
 
     registrar() {
         let usuario = this.verificarCampos();
         if (usuario) {
+            this.arrPessoa = [];
             this.arrPessoa.push(usuario);
+            localStorage.setItem(this.id, JSON.stringify(this.arrPessoa));
             this.id++;
 
             let input = document.getElementsByClassName("input");
@@ -23,7 +25,7 @@ class Pessoa {
         let tbody = document.getElementById('tbody');
         tbody.innerText = '';
 
-        for (let i = 0; i < this.arrPessoa.length; i++) {
+        for (let i = 1; i <= localStorage.length; i++) {
             let tr = tbody.insertRow();
 
             let td_id = tr.insertCell();
@@ -31,10 +33,10 @@ class Pessoa {
             let td_email = tr.insertCell();
             let td_cidade = tr.insertCell();
             
-            td_id.innerText = this.arrPessoa[i].id;
-            td_nome.innerText = this.arrPessoa[i].nome;
-            td_email.innerText = this.arrPessoa[i].email;
-            td_cidade.innerText = this.arrPessoa[i].cidade;
+            td_id.innerText = JSON.parse(localStorage.getItem([i]))[0].id;
+            td_nome.innerText = JSON.parse(localStorage.getItem([i]))[0].nome;
+            td_email.innerText = JSON.parse(localStorage.getItem([i]))[0].email;
+            td_cidade.innerText = JSON.parse(localStorage.getItem([i]))[0].cidade;
 
         }
     }
@@ -59,5 +61,5 @@ var pessoa = new Pessoa()
 
 var salvar = document.getElementById('salvar');
 salvar.addEventListener('click', () => {
-    console.log(pessoa.registrar());
+    pessoa.registrar();
 })
