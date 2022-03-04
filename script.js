@@ -41,6 +41,11 @@ class Pessoa {
         }
     }
 
+    limpar(){
+        localStorage.clear();
+        location.reload();
+    }
+
     verificarCampos() {
         let usuario = {};
         usuario.id = this.id;
@@ -59,7 +64,14 @@ class Pessoa {
 
 var pessoa = new Pessoa()
 
+pessoa.listar();
+
 var salvar = document.getElementById('salvar');
 salvar.addEventListener('click', () => {
     pessoa.registrar();
+})
+
+var limpar = document.getElementById('limpar');
+limpar.addEventListener('click', () => {
+    pessoa.limpar();
 })
