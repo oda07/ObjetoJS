@@ -1,22 +1,32 @@
-arrPessoa = [];
-
 class Pessoa {
-    constructor(nome, email, cidade){
-        this.nome = nome;
-        this.email = email;
-        this.cidade = cidade;
+    constructor() {
+        this.id = 1;
+        this.arrPessoa = [];
     }
 
-    salvar(){
-        let a = document.getElementById('nome').value;
-        console.log(a);
+    registrar() {
+        let usuario = this.verificarCampos();
+        this.arrPessoa.push(usuario);
+        this.id++;
+    }
+
+    verificarCampos() {
+        let usuario = {};
+        usuario.nome = document.getElementById('nome').value;
+        usuario.email = document.getElementById('email').value;
+        usuario.cidade = document.getElementById('cidade').value;
+        if (usuario.nome == "" || usuario.email == "" || usuario.cidade == ""){
+            alert("Para criar um registro preencha todos os campos!")
+        }
+        else{
+            return usuario;
+        }
     }
 }
 
-let pessoa = new Pessoa()
+var pessoa = new Pessoa()
 
-
-let salvar = document.getElementById('salvar');
-salvar.addEventListener('click', ()=>{
-    pessoa.salvar();
+var salvar = document.getElementById('salvar');
+salvar.addEventListener('click', () => {
+    console.log(pessoa.registrar());
 })
