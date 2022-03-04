@@ -6,8 +6,17 @@ class Pessoa {
 
     registrar() {
         let usuario = this.verificarCampos();
-        this.arrPessoa.push(usuario);
-        this.id++;
+        if (usuario) {
+            this.arrPessoa.push(usuario);
+            this.id++;
+
+            let input = document.getElementsByClassName("input");
+            for (let i = 0; i < input.length; i++) {
+                input[i].value = "";
+            }
+
+            return this.arrPessoa;
+        }
     }
 
     verificarCampos() {
@@ -15,10 +24,11 @@ class Pessoa {
         usuario.nome = document.getElementById('nome').value;
         usuario.email = document.getElementById('email').value;
         usuario.cidade = document.getElementById('cidade').value;
-        if (usuario.nome == "" || usuario.email == "" || usuario.cidade == ""){
+        if (usuario.nome == "" || usuario.email == "" || usuario.cidade == "") {
             alert("Para criar um registro preencha todos os campos!")
+            return false;
         }
-        else{
+        else {
             return usuario;
         }
     }
