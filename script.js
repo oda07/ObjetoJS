@@ -13,9 +13,9 @@ class Pessoa {
             this.id++;
 
             let input = document.getElementsByClassName("input");
-            for (let i = 0; i < input.length; i++) {
-                input[i].value = "";
-            }
+            // for (let i = 0; i < input.length; i++) {
+            //     input[i].value = "";
+            // }
 
             this.listar();
         }
@@ -26,22 +26,25 @@ class Pessoa {
         tbody.innerText = '';
 
         for (let i = 1; i <= localStorage.length; i++) {
+            if(JSON.parse(localStorage.getItem([i]))[0] == null || JSON.parse(localStorage.getItem([i]))[0] == false){
+                i++;
+                return;
+            }
             let tr = tbody.insertRow();
 
             let td_id = tr.insertCell();
             let td_nome = tr.insertCell();
             let td_email = tr.insertCell();
             let td_cidade = tr.insertCell();
-            
+
             td_id.innerText = JSON.parse(localStorage.getItem([i]))[0].id;
             td_nome.innerText = JSON.parse(localStorage.getItem([i]))[0].nome;
             td_email.innerText = JSON.parse(localStorage.getItem([i]))[0].email;
             td_cidade.innerText = JSON.parse(localStorage.getItem([i]))[0].cidade;
-
         }
     }
 
-    limpar(){
+    limpar() {
         localStorage.clear();
         location.reload();
     }
@@ -63,7 +66,6 @@ class Pessoa {
 }
 
 var pessoa = new Pessoa()
-
 pessoa.listar();
 
 var salvar = document.getElementById('salvar');
