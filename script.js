@@ -19,6 +19,10 @@ class Pessoa {
         }
     }
 
+    limpar() {
+        location.reload();
+    }
+
     listar() {
         let tbody = document.getElementById('tbody');
         tbody.innerText = '';
@@ -59,5 +63,10 @@ var pessoa = new Pessoa()
 
 var salvar = document.getElementById('salvar');
 salvar.addEventListener('click', () => {
-    console.log(pessoa.registrar());
+    pessoa.registrar();
+})
+
+var limpar = document.getElementById('limpar');
+limpar.addEventListener('click', () => {
+    pessoa.limpar();
 })
