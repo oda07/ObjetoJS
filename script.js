@@ -2,11 +2,12 @@ class Pessoa {
     constructor() {
         this.id = 1;
         this.arrPessoa = [];
+        this.editId = null;
     }
 
     registrar() {
         let usuario = this.verificarCampos();
-        if (usuario) {
+        if (usuario && this.editId == null) {
             this.arrPessoa.push(usuario);
             this.id++;
 
@@ -16,6 +17,9 @@ class Pessoa {
             }
 
             this.listar();
+        }
+        else {
+            this.update(this.editId, usuario);
         }
     }
 
@@ -50,7 +54,7 @@ class Pessoa {
             td_icons.appendChild(iconUpdate);
 
             iconDelete.setAttribute('onclick', `pessoa.deletar(${td_id.innerText})`)
-            iconUpdate.setAttribute('onclick', `pessoa.update(${td_id.innerText})`)
+            iconUpdate.setAttribute('onclick', `pessoa.updateLista(${td_id.innerText})`)
 
         }
     }
@@ -58,16 +62,41 @@ class Pessoa {
     deletar(id) {
         let tbody = document.getElementById('tbody');
 
-        for(let i = 0; i < this.arrPessoa.length; i++){
-            if(this.arrPessoa[i].id == id){
+        for (let i = 0; i < this.arrPessoa.length; i++) {
+            if (this.arrPessoa[i].id == id) {
                 this.arrPessoa.splice(i, 1);
                 tbody.deleteRow(i);
+            }
+
+        }
+    }
+
+    updateLista(id) {
+        let btnSalvar = document.getElementById("salvar");
+        let inputs = document.querySelectorAll(".input");
+        this.editId = id;
+
+        btnSalvar.innerText = 'Update';
+
+        for (let i = 0; i < this.arrPessoa.length; i++) {
+            if (this.arrPessoa[i].id == id) {
+                inputs[0].value = this.arrPessoa[i].nome;
+                inputs[1].value = this.arrPessoa[i].email;
+                inputs[2].value = this.arrPessoa[i].cidade;
             }
         }
     }
 
-    update(){
-        
+    update(id, usuario) {
+        for (let i = 0; i < this.arrPessoa.length; i++) {
+            if(this.arrPessoa[i].id == id){
+                this.arrPessoa[i].nome = usuario.nome;
+                this.arrPessoa[i].email = usuario.email;
+                this.arrPessoa[i].cidade = usuario.cidade;
+            }
+            this.listar();
+            this.cancelar();
+        }
     }
 
     verificarCampos() {
@@ -83,6 +112,15 @@ class Pessoa {
         else {
             return usuario;
         }
+    }
+
+    cancelar() {
+        document.getElementById('nome').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('cidade').value = '';
+        document.getElementById('salvar').innerText = 'Salvar';
+
+        this.editId = null;
     }
 }
 
