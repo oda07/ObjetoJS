@@ -12,3 +12,9 @@
 .inputs input{
     margin: 10px;
 }
+
+table img{
+    width: 30px;
+    margin: 0 10px;
+    cursor: pointer;
+}
